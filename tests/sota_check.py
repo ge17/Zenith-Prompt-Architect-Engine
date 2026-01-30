@@ -5,8 +5,8 @@ import sys
 sys.path.append(os.path.join(os.getcwd(), "src"))
 sys.path.append(os.getcwd())
 
-from src.core.agent import ZenithAgent
-from src.core.config import Config
+from src.core.agent import ZenithAgent  # noqa: E402
+from src.core.config import Config  # noqa: E402
 
 
 def verify_sota():
@@ -24,7 +24,8 @@ def verify_sota():
         print("2. Instantiating ZenithAgent (SOTA)...")
         # Use a dummy system instruction
         agent = ZenithAgent(config, "You are Zenith.")
-        print("✅ ZenithAgent Instantiated.")
+        agent.start_chat()
+        print("✅ ZenithAgent Instantiated and Chat Started.")
 
         # 3. Check Sub-modules
         if not agent.analyzer:
