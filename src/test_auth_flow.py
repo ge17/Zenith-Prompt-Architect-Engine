@@ -16,7 +16,7 @@ if not url or not key:
 
 supabase: Client = create_client(url, key)
 
-email = f"zenith_test_{int(time.time())}@gmail.com"
+email = f"zenith_test@gmail.com"
 password = "testpassword123"
 
 # Try sign in, if fails, sign up
