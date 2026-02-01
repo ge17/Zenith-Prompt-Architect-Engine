@@ -34,13 +34,28 @@ class MockRepository:
     def log_usage(self, user_id: str, session_id: str, model: str, input_tokens: int, output_tokens: int, total_tokens: int) -> None:
         print(f"[MockDB] Logged usage: {total_tokens} tokens")
 
+class MockSession:
+    def __init__(self):
+        self._history = []
+    
+    @property
+    def history(self):
+        return self._history
+    
+    @history.setter
+    def history(self, value):
+        self._history = value
+
+    async def send_message_async(self, message: str):
+        return "Mock Response"
+
 class MockLLM(LLMProvider):
     def configure(self, api_key: str):
         pass
 
     def start_chat(self, history: List[Dict[str, Any]] = None) -> Any:
         print("[MockLLM] Chat started")
-        return "mock_session_obj"
+        return MockSession()
 
     async def generate_content_async(self, prompt: str, **kwargs) -> str:
         return "Mock Response"
@@ -86,7 +101,8 @@ def verify_dip():
             context_builder=MockService(),
             analyzer=MockService(),
             judge=MockService(),
-            memory=MockService()
+            memory=MockService(),
+            validator=MockService()
         )
         print("✅ ZenithAgent instantiated successfully!")
     except Exception as e:
