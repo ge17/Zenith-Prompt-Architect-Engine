@@ -19,7 +19,7 @@ async def diagnose():
 
     # 1. Config Check
     try:
-        config = Config.load()
+        config = Config()
         print("✅ Configuration Loaded.")
     except Exception as e:
         print(f"❌ Config Load Failed: {e}")
@@ -41,7 +41,7 @@ async def diagnose():
             model_name=config.MODEL_NAME,
             temperature=0.1
         )
-        llm.configure(config.GOOGLE_API_KEY)
+        llm.configure(config.GOOGLE_API_KEY.get_secret_value())
         
         print(f"Testing Gemini Model: {config.MODEL_NAME}...")
         # Simple generation
